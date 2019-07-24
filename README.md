@@ -4,7 +4,7 @@ MikroTik API CLI in Rust
 This is a project to practice on Rust. 
 
 Usage example:
-./routeros-cli 192.168.1.1 8728 <username> <password>
+./routeros-cli 192.168.1.1 8728 username password
 
 Then enter your api command followed with a blank line.
 
