@@ -1,5 +1,6 @@
+extern crate clap;
+use clap::{App, Arg};
 
-use std::env;
 use std::thread;
 use std::io::{self, Write, Error, BufReader, BufRead};
 use std::net::TcpStream;
@@ -58,14 +59,32 @@ impl Router {
 
 
 fn main() {
-    println!("Enter your command: (e To exit)");
 
-    let args: Vec<String> = env::args().collect();
-    let ip = &args[1];
-    let port = &args[2];
-    let username = &args[3];
-    let password = &args[4];
+    let matches = App::new("RouterOsCli")
+                        .version("0.1.0")
+                        .about("RouterOS API CLI client")
+                        .arg(Arg::with_name("ip")
+                            .help("IP Address")
+                            .index(1)
+                            .required(true))
+                        .arg(Arg::with_name("port")
+                            .help("API Port")
+                            .index(2)
+                            .required(true))
+                        .arg(Arg::with_name("username")
+                            .help("Username")
+                            .index(3)
+                            .required(true))
+                        .arg(Arg::with_name("password")
+                            .help("Password")
+                            .index(4)
+                            .required(true))
+                        .get_matches();
 
+    let ip = matches.value_of("ip").unwrap();
+    let port = matches.value_of("port").unwrap();
+    let username = matches.value_of("username").unwrap();
+    let password = matches.value_of("password").unwrap();
 
 
     let r = Router::new(ip.to_string(), username.to_string(),
@@ -76,6 +95,8 @@ fn main() {
     let mut stream = TcpStream::connect(format!("{}:{}", r.ip, r.port))
         .expect("Can not connect to router");
 
+
+    println!("Enter your command: (e To exit)");
 
     let input_stream = stream.try_clone().unwrap();
 
