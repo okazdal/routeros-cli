@@ -188,6 +188,7 @@ fn process_su8(sen: &[u8]) -> Result<Vec<&[u8]>, Error> {
         }
         words.push(&word[1..]);
         acc = sen[acc] as usize + acc + 1;
+        if acc > sen.len() {break;}
         if sen[acc] == 0 {break;}
     };
 
