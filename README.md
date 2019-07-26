@@ -10,7 +10,7 @@ Then enter your api command followed with a blank line.
 
 ## Issues:
 
-- Currently it does not support SSL. I will make SSL version.
+- Currently it does not support SSL. [SSL Version](https://github.com/okazdal/routeros-cli-ssl)
 - I could not get it working with /log/listen command. Still working on it.
 
 
